@@ -1,0 +1,30 @@
+name: pagespeed
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  get-pagespeed-results:
+    runs-on: ubuntu-latest
+    env:
+      HOST: https://extravidocs.github.io/
+      PSURL: https://pagespeed-insights.herokuapp.com
+      PSRDESKTOP: psresultdesktop
+      PSRMOBILE: psresultmobile
+      RESULTSFOLDER: reports
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: fregante/setup-git-user@v1
+    - name: Get Pagespeed results
+      run: |
+          mkdir -p ${RESULTSFOLDER}
+          curl "${PSURL}/?url=${HOST}" > ./${RESULTSFOLDER}/${PSRDESKTOP}.svg
+          curl "${PSURL}/?url=${HOST}&strategy=mobile" > ./${RESULTSFOLDER}/${PSRMOBILE}.svg
+    - name: Commit and push
+      run: |
+        git add .
+        git diff --quiet && git diff --staged --quiet || git commit -am "Update Pagespeed results"
+        git push
