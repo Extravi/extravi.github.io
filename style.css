@@ -48,6 +48,10 @@ img {
     }
 }
 
+iframe {
+    min-width: 321px;
+}
+
 * {
     margin: 0;
     padding: 0;
