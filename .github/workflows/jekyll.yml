@@ -9,7 +9,7 @@ jobs:
   get-pagespeed-results:
     runs-on: ubuntu-latest
     env:
-      HOST: https://extravidocs.github.io/
+      HOST: https://extravi.dev/
       PSURL: https://pagespeed-insights.herokuapp.com
       PSRDESKTOP: psresultdesktop
       PSRMOBILE: psresultmobile
