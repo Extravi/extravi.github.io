@@ -58,7 +58,7 @@ iframe {
 }
 
 
-/* slightly transparent fallback */
+/* solid fallback */
 
 .wrapper {
     width: 100%;
