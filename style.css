@@ -41,7 +41,7 @@ img {
     height: 50px;
 }
 
-@media (max-width: 978px) {
+@media (max-width: 43.75em) {
     iframe {
         max-width: 320px;
         max-height: 180px;
@@ -57,14 +57,31 @@ iframe {
     padding: 0;
 }
 
+
+/* slightly transparent fallback */
+
 .wrapper {
     width: 100%;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
-    background-color: rgba(11, 11, 13, 0.7);
-    backdrop-filter: blur(13px);
+    background-color: rgba(11, 11, 13, 1);
+}
+
+
+/* if backdrop support: very transparent and blurred */
+
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    .wrapper {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        background-color: rgba(11, 11, 13, 0.7);
+        backdrop-filter: blur(13px);
+    }
 }
 
 .navbar {
