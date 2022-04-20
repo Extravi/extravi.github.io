@@ -48,6 +48,12 @@ img {
 }
 
 @media (max-width: 43.75em) {
+    .menu {
+        text-align: center;
+    }
+}
+
+@media (max-width: 43.75em) {
     iframe {
         max-width: 320px;
         max-height: 180px;
