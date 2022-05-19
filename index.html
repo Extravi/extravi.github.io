@@ -7,14 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROBLOX Shaders - ReShade For Roblox</title>
-    <meta name="description" content="Roblox shaders are mods that enhance the visual quality of Roblox. They allow users to have high graphics quality while still being able to play the game.">
+    <meta name="description"
+        content="Roblox shaders are mods that enhance the visual quality of Roblox. They allow users to have high graphics quality while still being able to play the game.">
     <meta content="ROBLOX Shaders - ReShade For Roblox" property="og:title">
     <meta content="ReShade For Roblox" property="og:description">
     <meta content="/" property="og:url">
     <meta content="/cat-crazy-cat.gif" property="og:image">
     <meta content="#5885F4" data-react-helmet="true" name="theme-color">
-    <link rel="stylesheet" href="https://gist.githubusercontent.com/Extravi/7485a73ce6b0a0e9d609b83e371ec3e5/raw/7233f824141691d0939d7be89c884f4acc6a5934/normalize.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://gist.githubusercontent.com/Extravi/7485a73ce6b0a0e9d609b83e371ec3e5/raw/7233f824141691d0939d7be89c884f4acc6a5934/normalize.min.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+        rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
 
@@ -40,10 +44,19 @@
         <header class="bg-image">
             <div class="container">
                 <h1>Extravi's ReShade-Preset</h1>
-                <h2>ReShade For Roblox</h2>
-                <a href="https://github.com/Extravi/Installer/releases/download/releases/Extravi-ReShade-Preset.zip" class="btn btn-transparent">Download</a>
+                <h2 id="count"></h2>
+                <a href="https://github.com/Extravi/Installer/releases/download/releases/Extravi-ReShade-Preset.zip"
+                    class="btn btn-transparent">Download</a>
             </div>
         </header>
+
+        <script>
+            fetch("https://api.github.com/repos/Extravi/Installer/releases/assets/64802601")
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector("#count").innerText = data.download_count + "/downloads"
+                })
+        </script>
 
         <section class="">
             <div class="container">
@@ -52,7 +65,8 @@
                 </div>
                 <div class="col-7 details">
                     <h3>How does it work?</h3>
-                    <p>ReShade. What is ReShade, you may ask? ReShade is a generic post-processing injector for games and video software developed by crosire. For more info, please visit https://reshade.me/</p>
+                    <p>ReShade. What is ReShade, you may ask? ReShade is a generic post-processing injector for games
+                        and video software developed by crosire. For more info, please visit https://reshade.me/</p>
                 </div>
             </div>
         </section>
@@ -83,7 +97,10 @@
         <section class="text--center">
             <div class="container">
                 <h3>How to install :)</h3>
-                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/rNa5VHjHeGM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/rNa5VHjHeGM"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
             </div>
         </section>
 
@@ -91,16 +108,20 @@
             <div class="container">
                 <h3>GitHub repositories used to make this possible 😊</h3>
                 <a href="https://github.com/martymcmodding/qUINT/tree/master/Shaders" target="_blank">
-                    <img alt="svg" class="github" align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=martymcmodding&repo=qUINT&theme=dark" />
+                    <img alt="svg" class="github" align="center"
+                        src="https://github-readme-stats.vercel.app/api/pin/?username=martymcmodding&repo=qUINT&theme=dark" />
                 </a>
                 <a href="https://github.com/crosire/reshade-shaders/tree/master/Shaders" target="_blank">
-                    <img alt="svg" class="github" align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=crosire&repo=reshade-shaders&theme=dark" />
+                    <img alt="svg" class="github" align="center"
+                        src="https://github-readme-stats.vercel.app/api/pin/?username=BlueSkyDefender&repo=AstrayFX&theme=dark" />
                 </a>
                 <a href="https://github.com/prod80/prod80-ReShade-Repository" target="_blank">
-                    <img alt="svg" class="github" align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=prod80&repo=prod80-ReShade-Repository&theme=dark" />
+                    <img alt="svg" class="github" align="center"
+                        src="https://github-readme-stats.vercel.app/api/pin/?username=prod80&repo=prod80-ReShade-Repository&theme=dark" />
                 </a>
                 <a href="https://github.com/Extravi/Installer" target="_blank">
-                    <img alt="svg" class="github" align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=Extravi&repo=Installer&theme=dark" />
+                    <img alt="svg" class="github" align="center"
+                        src="https://github-readme-stats.vercel.app/api/pin/?username=BlueSkyDefender&repo=Depth3D&theme=dark" />
                 </a>
             </div>
         </section>
@@ -131,8 +152,9 @@
         <section class="text--center">
             <div class="container">
                 <h3>If you're interested in checking out the source code, you can check it out at GitHub.</h3>
-                <a href="https://github.com/Extravi" target="_blank" class="btn">̿̿ ̿̿ ̿̿ ̿'̿'\̵͇̿̿\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿
-                ̿̿</a>
+                <a href="https://github.com/Extravi" target="_blank" class="btn">̿̿ ̿̿ ̿̿ ̿'̿'\̵͇̿̿\з= ( ▀ ͜͞ʖ▀)
+                    =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿
+                    ̿̿</a>
             </div>
         </section>
 
