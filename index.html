@@ -54,7 +54,7 @@
             fetch("https://api.github.com/repos/Extravi/Installer/releases/assets/64802601")
                 .then(response => response.json())
                 .then(data => {
-                    document.querySelector("#count").innerText = data.download_count + "/downloads"
+                    document.querySelector("#count").innerText = data.download_count + " - downloads"
                 })
         </script>
 
