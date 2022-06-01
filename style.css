@@ -95,11 +95,39 @@ iframe {
     color: #fff;
     padding: 0 20px;
     height: 50px;
+}
+
+.logo {
+    line-height: 50px;
+    margin-left: 25px;
+    float: left;
+    text-transform: uppercase;
+}
+
+.logo a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu {
+    float: right;
+    line-height: 50px;
+}
+
+.menu a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.logo,
+.menu {
     background: linear-gradient(238deg, #fd8800, #fd008f, #9700fd, #003dfd, #05c7e6, #4bd58d);
     background-size: 1200% 1200%;
-    -webkit-animation: rainbow 30s ease infinite;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    -webkit-animation: rainbow 30s ease infinite;
     animation: rainbow 30s ease infinite;
 }
 
@@ -131,29 +159,6 @@ iframe {
     }
 }
 
-.logo {
-    line-height: 50px;
-    margin-left: 25px;
-    float: left;
-    text-transform: uppercase;
-}
-
-.logo a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.menu {
-    float: right;
-    line-height: 50px;
-}
-
-.menu a {
-    color: #fff;
-    text-decoration: none;
-    padding: 0 10px;
-    font-size: 14px;
-}
 
 .btn {
     display: inline-block;
