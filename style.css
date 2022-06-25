@@ -65,10 +65,6 @@ iframe {
     z-index: 1;
 }
 
-.description {
-    border-radius: 10px;
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -347,6 +343,10 @@ section p {
 .details h3 {
     font-size: 2rem;
     text-align: left;
+}
+
+.details-img--ball {
+    border-radius: 10px;
 }
 
 @media (max-width: 43.75em) {
