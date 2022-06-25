@@ -45,7 +45,9 @@ img {
 
 @media (max-width: 43.75em) {
     .mobile {
-        display: none;
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
     }
 }
 
@@ -58,6 +60,13 @@ img {
 
 iframe {
     min-width: 321px;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.description {
+    border-radius: 10px;
 }
 
 * {
