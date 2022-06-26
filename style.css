@@ -118,8 +118,8 @@ iframe {
     background-size: 1200% 1200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    -webkit-animation: rainbow 30s ease infinite;
-    animation: rainbow 30s ease infinite;
+    -webkit-animation: rainbow 4s ease infinite;
+    animation: rainbow 4s ease infinite;
 }
 
 @-webkit-keyframes rainbow {
