@@ -60,6 +60,7 @@ img {
 
 iframe {
     min-width: 321px;
+    border-radius: 10px;
 }
 
 * {
@@ -340,6 +341,10 @@ section p {
 .details h3 {
     font-size: 2rem;
     text-align: left;
+}
+
+.details-img--ball {
+    border-radius: 10px;
 }
 
 @media (max-width: 43.75em) {
