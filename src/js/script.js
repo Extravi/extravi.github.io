@@ -62,52 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateClock, 1000);
 
     /* github api */
-    const apiUrl1 = 'https://api.github.com/repos/Extravi/Installer/releases';
-    const apiUrl2 = 'https://api.github.com/repos/Extravi/Bloxshade/releases';
-    const apiUrl3 = 'https://api.github.com/repos/Extravi/bloxshade-args/releases';
-
-    async function fetchData(url) {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Error fetching data: ${response.statusText}`);
-        }
-        return await response.json();
-    }
-
-    function getReleaseDownloads(releases) {
-        return releases.reduce((acc, release) => acc + release.assets.reduce((sum, asset) => sum + asset.download_count, 0), 0);
-    }
-
-    async function updateDownloadCounts() {
-        const installerEl = document.getElementById('dl-installer');
-        const bloxshadeEl = document.getElementById('dl-bloxshade');
-        const argsEl = document.getElementById('dl-args');
-        const totalEl = document.getElementById('dl-total');
-
-        if (!installerEl || !bloxshadeEl || !argsEl || !totalEl) return;
-
-        try {
-            console.log('%cFetching GitHub download counts…', 'color:#d0bcff');
-            const [releases1, releases2, releases3] = await Promise.all([
-                fetchData(apiUrl1),
-                fetchData(apiUrl2),
-                fetchData(apiUrl3)
-            ]);
-
-            const count1 = getReleaseDownloads(releases1);
-            const count2 = getReleaseDownloads(releases2);
-            const count3 = getReleaseDownloads(releases3);
-            const total = count1 + count2 + count3;
-
-            installerEl.textContent = count1.toLocaleString();
-            bloxshadeEl.textContent = count2.toLocaleString();
-            argsEl.textContent = count3.toLocaleString();
-            totalEl.textContent = total.toLocaleString();
-        } catch (error) {
-            console.error('Error fetching downloads:', error);
-            installerEl.textContent = bloxshadeEl.textContent = argsEl.textContent = totalEl.textContent = '—';
-        }
-    }
 
     async function calculateTotalStarCount() {
         const starCountEl = document.getElementById('total-stars-count');
@@ -136,12 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    updateDownloadCounts();
     calculateTotalStarCount();
 
     /* widget drag setup */
     setupDraggable('clock-widget');
-    setupDraggable('downloads-widget');
     setupDraggable('music-widget');
 
     const musicWidget = document.getElementById('music-widget');
@@ -455,6 +407,18 @@ document.addEventListener('DOMContentLoaded', () => {
         let resizeHandlerAttached = false;
         let allRepos = [];
 
+        async function getRepoDownloads(repoName) {
+            try {
+                const response = await fetch(`https://api.github.com/repos/Extravi/${repoName}/releases`);
+                if (!response.ok) return 0;
+                const releases = await response.json();
+                return releases.reduce((acc, release) => acc + release.assets.reduce((sum, asset) => sum + asset.download_count, 0), 0);
+            } catch (error) {
+                console.error(`Error fetching downloads for ${repoName}:`, error);
+                return 0;
+            }
+        }
+
         function clampDescription(descEl) {
             if (!descEl) return;
             const fullText = descEl.dataset.fullDesc || descEl.textContent.trim();
@@ -539,10 +503,26 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <span class="material-icons-round">call_split</span>
                                 ${repo.forks_count}
                             </div>
+                            <div class="stat-item tooltip download-stat" id="dl-${repo.name}" title="Downloads" style="display: none;">
+                                <span class="material-icons-round">cloud_download</span>
+                                <span>-</span>
+                            </div>
                         </div>
                     </div>
                 `;
                 repoList.appendChild(card);
+
+                const targetRepos = ['Installer', 'Bloxshade', 'bloxshade-args'];
+                if (targetRepos.includes(repo.name)) {
+                    const dlEl = card.querySelector(`#dl-${repo.name}`);
+                    if (dlEl) {
+                        dlEl.style.display = 'flex';
+                        getRepoDownloads(repo.name).then(count => {
+                            dlEl.querySelector('span:last-child').textContent = count.toLocaleString();
+                        });
+                    }
+                }
+
                 const descEl = card.querySelector('.repo-desc');
                 if (descEl) {
                     descEl.textContent = rawDesc;
@@ -913,6 +893,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!widget) return;
 
         let isDragging = false;
+        let isPressed = false;
         let currentX;
         let currentY;
         let initialX;
@@ -924,19 +905,30 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('mouseup', dragEnd);
         document.addEventListener('mousemove', drag);
 
+        function updateTransform() {
+            const scale = isPressed ? 0.98 : 1;
+            widget.style.transform = `translate3d(${xOffset}px, ${yOffset}px, 0) scale(${scale})`;
+        }
+
         function dragStart(e) {
             initialX = e.clientX - xOffset;
             initialY = e.clientY - yOffset;
 
             if (e.target === widget || widget.contains(e.target)) {
                 isDragging = true;
+                isPressed = true;
                 highestZ++;
                 widget.style.zIndex = highestZ;
+                updateTransform();
             }
         }
 
         function dragEnd(e) {
             isDragging = false;
+            if (isPressed) {
+                isPressed = false;
+                updateTransform();
+            }
         }
 
         function drag(e) {
@@ -963,12 +955,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 xOffset = currentX;
                 yOffset = currentY;
 
-                setTranslate(currentX, currentY, widget);
+                updateTransform();
             }
-        }
-
-        function setTranslate(xPos, yPos, el) {
-            el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
         }
     }
 
