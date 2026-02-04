@@ -298,18 +298,17 @@ textarea {
     backdrop-filter: blur(20px);
     border: 2px dashed rgba(208, 188, 255, 0.4);
     border-radius: 16px;
-    z-index: 90;
 
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s ease;
-    display: none;
+    visibility: hidden;
 
 }
 
 .snap-preview.visible {
     opacity: 1;
-    display: block;
+    visibility: visible;
 }
 
 .snap-preview.left {
