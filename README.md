@@ -7,6 +7,9 @@ My personal website.
 <img src="https://github.com/user-attachments/assets/6e2f3839-e0ee-44a7-ac0c-556026a2468c" width="600">
 <img src="https://github.com/user-attachments/assets/b1db600d-2f9a-42fb-9933-a6ac42cffce3" width="600">
 
+## Credits
+* **Wallpaper:** [Starry night sky over snow covered mountains](https://unsplash.com/photos/starry-night-sky-over-snow-covered-mountains-ktllNfb9cBs) by [Marek Piwnicki](https://unsplash.com/@marekpiwnicki) on Unsplash.
+
 ## Authors & contact
 Made by [Extravi](https://extravi.dev/).
 
