@@ -1,0 +1,11 @@
+{
+    "file_name": "dxgi.dll",
+    "version": "5.8.0",
+    "checksums": {
+        "MD5": "1c13acff4c8f64d62554559d8a5ada52",
+        "SHA1": "54c4ce05bcf18d334a89867087c2cbc50aaa11a6",
+        "SHA256": "354c404100965f90127ff488d59487eb88a60610aad61ed97c9e87262c0fec3e",
+        "SHA512": "3d84571acb67b052f8177a90dfae43486241614bfd3b90e6b27dd8c9a3b7c0924cbc6ba5f25fab79c3da511a9cff99e9c6a20da409e33afed6ea492671411747"
+    },
+    "download_url": "https://extravi.dev/update/dxgi.zip"
+}

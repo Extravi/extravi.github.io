@@ -1,0 +1,6 @@
+{
+    "source": "https://us.download.nvidia.com/nvapp/client/11.0.1.189/NVIDIA_app_v11.0.1.189.exe",
+    "profile": "https://raw.githubusercontent.com/Extravi/nv-profile/main/component_profiles.json",
+    "7za": "https://github.com/Extravi/nv-profile/raw/main/7za.exe",
+    "filename": "NVIDIA_app_v11.0.1.189.exe"
+}
