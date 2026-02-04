@@ -1,5 +1,6 @@
 # extravi.dev
-My personal website.
+A personal website for me and my projects.
+
 
 ## Screenshot preview
 <img src="https://github.com/user-attachments/assets/6d3c985b-0c8c-4919-8be8-4d895cdd97d6" width="600">
