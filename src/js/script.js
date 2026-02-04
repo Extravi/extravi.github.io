@@ -648,8 +648,12 @@ document.addEventListener('DOMContentLoaded', () => {
             element.classList.add('is-dragging');
             handle.style.cursor = 'grabbing';
 
-            highestZ++;
+            highestZ += 2;
             element.style.zIndex = highestZ;
+
+            if (snapLeft) snapLeft.style.zIndex = highestZ - 1;
+            if (snapRight) snapRight.style.zIndex = highestZ - 1;
+            if (snapTop) snapTop.style.zIndex = highestZ - 1;
         }
 
         function dragEnd() {
@@ -659,11 +663,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             handle.style.cursor = 'default';
 
-
             if (snapLeft) snapLeft.classList.remove('visible');
             if (snapRight) snapRight.classList.remove('visible');
             if (snapTop) snapTop.classList.remove('visible');
-
 
             if (snapType) {
 
