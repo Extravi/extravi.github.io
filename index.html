@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- metadata & imports -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extravi - Open Source</title>
+    <meta name="description" content="A personal website for me and my projects.">
+    <meta content="Extravi - Open Source" property="og:title">
+    <meta content="A personal website for me and my projects." property="og:description">
+    <meta content="/" property="og:url">
+    <meta content="#d0bcff" data-react-helmet="true" name="theme-color">
+    <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="./src/css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+        rel="stylesheet">
+    <script src="./src/js/script.js"></script>
+    <script src="./src/js/terminal.js"></script>
+</head>
+
+<body>
+    <!-- loading screen -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+    </div>
+    <!-- taskbar -->
+    <div class="taskbar">
+        <div class="menu-container">
+            <button class="menu-button material-icons-round" id="btn-start" title="Start">menu</button>
+            <button class="menu-button material-icons-round" id="btn-explorer" title="File Explorer">folder</button>
+            <button class="menu-button material-icons-round" id="btn-welcome" title="Welcome">auto_awesome</button>
+            <button class="menu-button material-icons-round" id="btn-terminal" title="Terminal">terminal</button>
+        </div>
+        <div class="tray-container">
+            <button class="tray-button material-icons-round" id="btn-tray"
+                title="Show Hidden Icons">expand_less</button>
+            <button class="tray-button material-icons-round" id="btn-volume" title="Volume Muted">volume_off</button>
+            <button class="tray-button material-icons-round" id="btn-network" title="Network">wifi</button>
+            <div class="tray-button" id="clock-tray">
+                <div id="clock-display">
+                    <div id="time"></div>
+                    <div id="date"></div>
+                </div>
+            </div>
+            <button class="tray-button material-icons-round" id="btn-dashboard"
+                title="Notifications">space_dashboard</button>
+            <div class="show-desktop-strip" id="btn-show-desktop"></div>
+        </div>
+    </div>
+    <main>
+
+        <!-- start menu -->
+        <div id="start-menu" class="floating-menu start-menu" style="display: none;">
+            <div class="start-search">
+                <span class="material-icons-round">search</span>
+                <input type="text" placeholder="Type here to search...">
+            </div>
+            <div class="start-pinned">
+                <div class="pinned-title">Applications</div>
+                <div class="pinned-grid">
+                    <button class="pinned-item" id="start-explorer">
+                        <span class="material-icons-round" style="color: #64b5f6;">folder</span>
+                        <span>File Explorer</span>
+                    </button>
+                    <button class="pinned-item" id="start-terminal">
+                        <span class="material-icons-round" style="color: #9ca3af;">terminal</span>
+                        <span>Terminal</span>
+                    </button>
+                    <button class="pinned-item" id="start-welcome">
+                        <span class="material-icons-round" style="color: #d0bcff;">auto_awesome</span>
+                        <span>Welcome</span>
+                    </button>
+                </div>
+            </div>
+            <div class="start-header">
+                <div class="user-profile">
+                    <div class="user-avatar material-icons-round">account_circle</div>
+                    <div class="user-info">
+                        <span class="username">Dante</span>
+                    </div>
+                </div>
+                <button class="power-btn material-icons-round" title="Power">power_settings_new</button>
+            </div>
+        </div>
+
+        <div id="notification-center" class="floating-menu notification-center" style="display: none;">
+            <div class="notif-header">
+                <span>Notifications</span>
+                <span class="clear-all">Clear all</span>
+            </div>
+            <div class="notif-content">
+                <div class="empty-state">
+                    <span class="material-icons-round">notifications_off</span>
+                    <span>No new notifications</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- desktop widgets -->
+        <div id="clock-widget" class="material-widget clock-widget">
+            <div class="clock-display-stacked">
+                <div id="widget-hours">10</div>
+                <div id="widget-minutes">30</div>
+            </div>
+            <div id="widget-date">Tue, Feb 3</div>
+        </div>
+        <div id="downloads-widget" class="material-widget downloads-widget">
+            <div class="widget-header">
+                <span class="material-icons-round">cloud_download</span>
+                <span>Downloads</span>
+            </div>
+            <div class="downloads-list">
+                <div class="download-item">
+                    <span>Installer</span>
+                    <span id="dl-installer">-</span>
+                </div>
+                <div class="download-item">
+                    <span>Bloxshade</span>
+                    <span id="dl-bloxshade">-</span>
+                </div>
+                <div class="download-item">
+                    <span>Args</span>
+                    <span id="dl-args">-</span>
+                </div>
+            </div>
+            <div class="downloads-total">
+                <span>Total</span>
+                <span id="dl-total">-</span>
+            </div>
+        </div>
+
+        <div id="music-widget" class="material-widget music-widget">
+            <div class="music-art"></div>
+            <div class="music-info-container">
+                <div class="music-text">
+                    <span class="music-title">Tears (Official Audio)</span>
+                    <span class="music-artist">Boy Harsher / Nude Club</span>
+                </div>
+                <div class="music-controls">
+                    <span class="material-icons-round play-icon">play_circle_filled</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="snap-preview-left" class="snap-preview left"></div>
+        <div id="snap-preview-right" class="snap-preview right"></div>
+        <div id="snap-preview-top" class="snap-preview top"></div>
+
+        <!-- windows -->
+        <div id="welcome-window" class="terminal-window" style="display: none;">
+            <div class="terminal-header" id="welcome-header">
+                <div class="terminal-title">
+                    <span class="material-icons-round">auto_awesome</span>
+                    <span>Welcome</span>
+                </div>
+                <div class="window-controls">
+                    <button class="control-btn close" id="welcome-close" title="Close"><span
+                            class="material-icons-round">close</span></button>
+                </div>
+            </div>
+            <div class="welcome-content">
+                <div class="welcome-hero">
+                    <h1>Welcome</h1>
+                    <p>extravi.dev</p>
+                </div>
+
+                <div class="welcome-section">
+                    <h2>Applications</h2>
+                    <div class="welcome-grid">
+                        <button id="welcome-app-explorer" class="welcome-card">
+                            <span class="material-icons-round" style="color: #64b5f6;">folder</span>
+                            <span>File Explorer</span>
+                        </button>
+                        <button id="welcome-app-terminal" class="welcome-card">
+                            <span class="material-icons-round" style="color: #9ca3af;">terminal</span>
+                            <span>Terminal</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="welcome-section">
+                    <h2>Links</h2>
+                    <div class="welcome-list">
+                        <a href="https://github.com/Extravi/araa-search" target="_blank" class="welcome-link">
+                            <span class="material-icons-round">search</span>
+                            <span>Araa</span>
+                        </a>
+                        <a href="https://bloxshade.com/" target="_blank" class="welcome-link">
+                            <span class="material-icons-round">camera_alt</span>
+                            <span>Bloxshade</span>
+                        </a>
+                        <a href="https://www.youtube.com/c/Extravi" target="_blank" class="welcome-link">
+                            <span class="material-icons-round">play_arrow</span>
+                            <span>YouTube</span>
+                        </a>
+                        <a href="https://github.com/Extravi" target="_blank" class="welcome-link">
+                            <span class="material-icons-round">code</span>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="mailto:dante@extravi.dev" class="welcome-link">
+                            <span class="material-icons-round">email</span>
+                            <span>Email</span>
+                        </a>
+                        <a href="https://extravi.dev/extravi.github.io.legacy/" target="_blank" class="welcome-link">
+                            <span class="material-icons-round">history</span>
+                            <span>Legacy Website</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resizer top-left"></div>
+            <div class="resizer top-right"></div>
+            <div class="resizer bottom-left"></div>
+            <div class="resizer bottom-right"></div>
+            <div class="resizer top"></div>
+            <div class="resizer right"></div>
+            <div class="resizer bottom"></div>
+            <div class="resizer left"></div>
+        </div>
+
+        <div id="terminal-window" class="terminal-window terminal-minimized" style="display: none;">
+            <div class="terminal-header" id="terminal-header">
+                <div class="terminal-title">
+                    <span class="material-icons-round">terminal</span>
+                    <span>dante@extravi.dev:~</span>
+                </div>
+                <div class="window-controls">
+                    <button class="control-btn minimize" id="term-min" title="Minimize"><span
+                            class="material-icons-round">remove</span></button>
+                    <button class="control-btn maximize" id="term-max" title="Maximize"><span
+                            class="material-icons-round">check_box_outline_blank</span></button>
+                    <button class="control-btn close" id="term-close" title="Close"><span
+                            class="material-icons-round">close</span></button>
+                </div>
+            </div>
+            <div class="terminal-content">
+                <div class="input-line">
+                    <span class="prompt">dante@extravi.dev:~$</span>
+                    <input type="text" class="cmd-input" autofocus spellcheck="false">
+                </div>
+            </div>
+
+            <div class="resizer top-left"></div>
+            <div class="resizer top-right"></div>
+            <div class="resizer bottom-left"></div>
+            <div class="resizer bottom-right"></div>
+            <div class="resizer top"></div>
+            <div class="resizer right"></div>
+            <div class="resizer bottom"></div>
+            <div class="resizer left"></div>
+        </div>
+
+        <div id="explorer-window" class="terminal-window terminal-minimized" style="display: none;">
+            <div class="terminal-header" id="explorer-header">
+                <div class="terminal-title">
+                    <span class="material-icons-round">folder</span>
+                    <span>File Explorer</span>
+                </div>
+
+                <div class="address-bar">
+                    <span class="material-icons-round">home</span>
+                    <span class="separator">/</span>
+                    <span>Home</span>
+                    <span class="separator">/</span>
+                    <span>GitHub</span>
+                </div>
+                <div class="window-controls">
+                    <button class="control-btn minimize" id="exp-min" title="Minimize"><span
+                            class="material-icons-round">remove</span></button>
+                    <button class="control-btn maximize" id="exp-max" title="Maximize"><span
+                            class="material-icons-round">check_box_outline_blank</span></button>
+                    <button class="control-btn close" id="exp-close" title="Close"><span
+                            class="material-icons-round">close</span></button>
+                </div>
+            </div>
+
+            <div class="explorer-body">
+
+                <div class="explorer-sidebar">
+                    <div class="sidebar-group">
+                        <div class="sidebar-title">Places</div>
+                        <div class="sidebar-item">
+                            <span class="material-icons-round" style="color: #64b5f6;">home</span>
+                            <span>Home</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="material-icons-round" style="color: #ba68c8;">desktop_windows</span>
+                            <span>Desktop</span>
+                        </div>
+                        <div class="sidebar-item active">
+                            <span class="material-icons-round" style="color: #81c784;">code</span>
+                            <span>GitHub</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="material-icons-round" style="color: #ffb74d;">folder</span>
+                            <span>Documents</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="material-icons-round" style="color: #4dd0e1;">download</span>
+                            <span>Downloads</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="material-icons-round" style="color: #f06292;">image</span>
+                            <span>Pictures</span>
+                        </div>
+                    </div>
+                    <div class="sidebar-group">
+                        <div class="sidebar-title">Devices</div>
+                        <div class="sidebar-item">
+                            <span class="material-icons-round" style="color: #e0e0e0;">dns</span>
+                            <span>File System</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="material-icons-round" style="color: #90a4ae;">settings_ethernet</span>
+                            <span>Network</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explorer-content">
+                    <div class="explorer-toolbar">
+                        <div class="search-container">
+                            <span class="material-icons-round">search</span>
+                            <input type="text" placeholder="Search repositories..." id="repo-search">
+                        </div>
+                        <div class="view-options">
+                            <span class="material-icons-round" title="Grid View">grid_view</span>
+                            <span class="material-icons-round" title="List View" style="opacity: 0.5;">view_list</span>
+                        </div>
+                    </div>
+                    <div id="repo-list" class="repo-grid">
+                        <div class="loading-container">
+                            <div class="spinner"></div>
+                            <div class="loading-text">Fetching repositories...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="explorer-footer">
+                <span id="repo-count">0 items</span>
+                <span id="repo-status">All repositories fetched</span>
+            </div>
+
+            <div class="resizer top-left"></div>
+            <div class="resizer top-right"></div>
+            <div class="resizer bottom-left"></div>
+            <div class="resizer bottom-right"></div>
+            <div class="resizer top"></div>
+            <div class="resizer right"></div>
+            <div class="resizer bottom"></div>
+            <div class="resizer left"></div>
+        </div>
+    </main>
+</body>
+
+</html>
