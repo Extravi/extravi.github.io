@@ -600,7 +600,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let isDragging = false;
         let isMaximizedDrag = false;
-        let startX, startY, initialLeft, initialTop;
+        let isSnappedDrag = false;
+        let startX, startY, initialLeft, initialTop, startWidth;
         let snapType = null;
 
         handle.addEventListener('mousedown', dragStart);
@@ -619,11 +620,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             initialLeft = element.offsetLeft;
             initialTop = element.offsetTop;
+            startWidth = element.offsetWidth;
             startX = e.clientX;
             startY = e.clientY;
 
             isDragging = true;
             isMaximizedDrag = element.classList.contains('terminal-maximized');
+            isSnappedDrag = element.classList.contains('terminal-snapped');
 
             element.classList.add('is-dragging');
             handle.style.cursor = 'grabbing';
@@ -640,6 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isDragging) return;
             isDragging = false;
             isMaximizedDrag = false;
+            isSnappedDrag = false;
 
             handle.style.cursor = 'default';
 
@@ -655,17 +659,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 void element.offsetWidth;
 
                 if (snapType === 'left') {
+                    const rect = element.getBoundingClientRect();
+                    element.dataset.w = element.style.width || rect.width + 'px';
+                    element.dataset.h = element.style.height || rect.height + 'px';
+                    element.dataset.x = element.style.left || rect.left + 'px';
+                    element.dataset.y = element.style.top || rect.top + 'px';
+
                     element.style.top = '10px';
                     element.style.left = '10px';
                     element.style.width = 'calc(50% - 15px)';
                     element.style.height = 'calc(100vh - 70px)';
                     element.classList.remove('terminal-maximized');
+                    element.classList.add('terminal-snapped');
                 } else if (snapType === 'right') {
+                    const rect = element.getBoundingClientRect();
+                    element.dataset.w = element.style.width || rect.width + 'px';
+                    element.dataset.h = element.style.height || rect.height + 'px';
+                    element.dataset.x = element.style.left || rect.left + 'px';
+                    element.dataset.y = element.style.top || rect.top + 'px';
+
                     element.style.top = '10px';
                     element.style.left = 'calc(50% + 5px)';
                     element.style.width = 'calc(50% - 15px)';
                     element.style.height = 'calc(100vh - 70px)';
                     element.classList.remove('terminal-maximized');
+                    element.classList.add('terminal-snapped');
                 } else if (snapType === 'top') {
 
                     const rect = element.getBoundingClientRect();
@@ -675,6 +693,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     element.dataset.y = element.style.top || rect.top + 'px';
 
                     element.classList.add('terminal-maximized');
+                    element.classList.remove('terminal-snapped');
 
                     element.style.top = '';
                     element.style.left = '';
@@ -695,11 +714,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const dy = e.clientY - startY;
 
 
-            if (isMaximizedDrag) {
+            if (isMaximizedDrag || isSnappedDrag) {
 
                 if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
                     isMaximizedDrag = false;
+                    isSnappedDrag = false;
                     element.classList.remove('terminal-maximized');
+                    element.classList.remove('terminal-snapped');
 
 
                     if (element.dataset.w) element.style.width = element.dataset.w;
@@ -711,7 +732,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-                    const mouseRatio = startX / window.innerWidth;
+                    const mouseRatio = (startX - initialLeft) / startWidth;
                     const newWidth = parseFloat(element.style.width);
 
 
